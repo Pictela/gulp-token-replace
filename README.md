@@ -11,22 +11,47 @@ npm install --save-dev gulp-token-replace
 
 Then, add it to your `gulpfile.js`:
 
-```javascript
-var jshint = require('gulp-token-replace');
 
-gulp.task('templates', function(){
-  gulp.src(['file.txt'])
-    .pipe(replace(/foo(.{3})/g, '$1foo'))
-    .pipe(gulp.dest('build/file.txt'));
-});
+```javascript
+var replace = require('gulp-token-replace');
+
 gulp.task('token-replace', function(){
   // regex to find tokens ({{.*?}})
   var config = require('./configuration/config.json');
   return gulp.src(['src/*.js', src/*.html'])
-    .pipe(tokenReplace({global:config}))
+    .pipe(replace({global:config}))
     .pipe(gulp.dest('dist/'))
 })
 ```
+```example config
+{
+  "tokens":{
+    "RMLibs":"http://ads.pictela.com/ads/jsapi/ADTECH.js",
+    "size":"320x50",
+    "Copyrights":"Copyright 2010-2014 AOL Platforms.",
+    "Author":"Martin Wojtala"
+  }
+}
+
+```in file (also works for JavaScript)
+<!--{{tokens.Copyrights}}-->
+<!--canvasSize:{{tokens.size}}-->
+<!DOCTYPE html>
+<html lang="en">
+<head><title>{{main.title}}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <meta charset="UTF-8">
+    <script src="{{tokens.RMLibs}}"></script>
+    <script src="swipe.min.js"></script>
+    <link rel="stylesheet" href="{{main.name}}.css">
+    <script src="{{main.name}}.debug.js"></script>
+</head>
+<body>
+<div id="content"></div>
+<div id="debug"></div>
+</body>
+</html>
+
 
 
 ## API
@@ -40,7 +65,7 @@ Type: `Object`
 
 configuration object.
 
-### tokenReplace(object)
+### replace(object)
 
 *Note:* gulp-token-replace cannot perform regex replacement on streams.
 
@@ -48,12 +73,6 @@ configuration object.
 Type: `RegExp`
 
 The regex pattern to search for. See the [MDN documentation for RegExp] for details.
-
-#### replacement
-Type: `String` or `Function`
-
-The replacement string or function. See the [MDN documentation for String.replace] for details.
-
 
 [MDN documentation for RegExp]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
 [MDN documentation for String.replace]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
