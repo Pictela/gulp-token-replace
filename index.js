@@ -5,10 +5,9 @@ var es = require('event-stream');
 var PluginError = require('gulp-util').PluginError;
 
 module.exports = function(options) {
-  //gutil.log(JSON.stringify(options);
   options = injectDefaultOptions(options);
 
-  function tokenReplace(file) {
+  return es.through(function(file) {
     var self = this;
     try {
       if (file.isNull()) {
@@ -27,9 +26,7 @@ module.exports = function(options) {
     } catch (e) {
       self.emit('error', new PluginError('gulp-token-replace', e));
     }
-  }
-
-  return es.through(tokenReplace);
+  });
 };
 
 function injectDefaultOptions(options) {
