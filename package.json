@@ -36,7 +36,7 @@
     "url": "https://github.com/Pictela/gulp-token-replace/issues"
   },
   "engines": {
-    "node": ">=0.8"
+    "node": ">=0.10"
   },
   "readmeFilename": "README.md"
 }
