@@ -34,6 +34,7 @@ function injectDefaultOptions(options) {
   options.prefix = options.prefix || '{{';
   options.suffix = options.suffix || '}}';
   options.tokens = options.tokens || options.global || {};
+  options.preserveUnknownTokens = options.preserveUnknownTokens || false;
   return options;
 }
 
@@ -46,11 +47,13 @@ function replace(file, text, options) {
   while (regExpResult = includeRegExp.exec(text)) {
     var fullMatch = regExpResult[0];
     var tokenName = regExpResult[1];
-    var tokenValue = ref(options.tokens, tokenName);
-    if (typeof tokenValue === 'object') {
-      tokenValue = JSON.stringify(tokenValue);
+    var tokenValue = getTokenValue(options.tokens, tokenName);
+    if (tokenValue === null && !options.preserveUnknownTokens) {
+      tokenValue = '';
     }
-    text = text.replace(fullMatch, tokenValue);
+    if (tokenValue !== null) {
+      text = text.replace(fullMatch, tokenValue);
+    }
   }
   file.contents = new Buffer(text);
   return file;
@@ -60,10 +63,15 @@ function escapeRegExp(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
-function ref(obj, str) {
-  var ps = str.split('.'), co = obj;
-  for (var i = 0; i < ps.length; i++) {
-    co = (co[ps[i]]) ? co[ps[i]] : co[ps[i]] = {};
+function getTokenValue(tokens, tokenName) {
+  var tmpTokens = tokens;
+  var tokenNameParts = tokenName.split('.');
+  for (var i = 0; i < tokenNameParts.length; i++) {
+    if (tmpTokens.hasOwnProperty(tokenNameParts[i])) {
+      tmpTokens = tmpTokens[tokenNameParts[i]];
+    } else {
+      return null;
+    }
   }
-  return co;
+  return tmpTokens;
 }
