@@ -10,7 +10,7 @@ module.exports = function(options) {
   var prefix = options.prefix || '{{';
   var suffix = options.suffix || '}}';
   var global = options.global || {};
-  var includeRegExp = new RegExp(/({{.*?}})/g);
+  var includeRegExp = new RegExp("(" + prefix + ".*?" + suffix + ")", "g");
 
   function tokenReplace(file) {
     var self = this;
@@ -34,14 +34,14 @@ module.exports = function(options) {
 };
 
 function replace(file, text, includeRegExp, prefix, suffix, global) {
-  prefix = prefix || ''; //TODO(martin.wojtala): implement prefix and suffix
-  suffix = suffix || '';
+  prefix = prefix || '{{';
+  suffix = suffix || '}}';
   global = global || {};
   var matches = includeRegExp.exec(text);
   while (matches) {
     var match = matches[0],
-      tempName = matches[1].split('{{')[1];
-    var token = tempName.split('}}')[0].toString();
+      tempName = matches[1].split(prefix)[1];
+    var token = tempName.split(suffix)[0].toString();
     var tokenValue = ref(global, token);
     if(typeof tokenValue === 'object'){
       tokenValue = JSON.stringify(tokenValue);
