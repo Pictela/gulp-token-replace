@@ -40,20 +40,17 @@ function injectDefaultOptions(options) {
 function replace(file, text, options) {
   options = injectDefaultOptions(options);
 
-  var includeRegExp = new RegExp("(" + escapeRegExp(options.prefix) + ".*?" + escapeRegExp(options.suffix) + ")", "g");
+  var includeRegExp = new RegExp(escapeRegExp(options.prefix) + "(.+?)" + escapeRegExp(options.suffix), "g");
 
-  var regExpResult = includeRegExp.exec(text);
-  while (regExpResult) {
+  var regExpResult;
+  while (regExpResult = includeRegExp.exec(text)) {
     var fullMatch = regExpResult[0];
-    var tempName = regExpResult[1].split(options.prefix)[1];
-    var tokenName = tempName.split(options.suffix)[0].toString();
+    var tokenName = regExpResult[1];
     var tokenValue = ref(options.tokens, tokenName);
     if (typeof tokenValue === 'object') {
       tokenValue = JSON.stringify(tokenValue);
     }
     text = text.replace(fullMatch, tokenValue);
-
-    regExpResult = includeRegExp.exec(text);
   }
   file.contents = new Buffer(text);
   return file;
