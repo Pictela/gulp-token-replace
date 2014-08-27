@@ -1,16 +1,16 @@
 # gulp-token-replace [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url]
+
 > A token replace plugin for gulp 3
 
-## Usage
+## Installation
 
 First, install `gulp-token-replace` as a development dependency:
 
-```shell
-npm install --save-dev gulp-token-replace
-```
+`npm install --save-dev gulp-token-replace`
 
-Then, add it to your `gulpfile.js`:
+## Usage
 
+Add it to your `gulpfile.js`:
 
 ```javascript
 var replace = require('gulp-token-replace');
@@ -21,10 +21,11 @@ gulp.task('token-replace', function(){
   return gulp.src(['src/*.js', 'src/*.html'])
     .pipe(replace({global:config}))
     .pipe(gulp.dest('dist/'))
-})
+});
 ```
 
-Example config
+## Example config
+
 ```javascript
 {
   "tokens":{
@@ -32,7 +33,11 @@ Example config
     "size":"320x50",
     "Copyrights":"Copyright 2010-2014 AOL Platforms.",
     "Author":"Martin Wojtala"
-  }
+  },
+  "main":{
+      "name":"example",
+      "title":"EXAMPLE TITLE"
+    }
 }
 ```
 
