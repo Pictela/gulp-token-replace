@@ -6,6 +6,7 @@
   "devDependencies": {
     "should": "~2.1.1",
     "mocha": "~1.15.1",
+    "gulp": ">=3.0.0",
     "gulp-util": "~2.0.0"
   },
   "dependencies": {
