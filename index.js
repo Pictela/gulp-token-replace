@@ -1,8 +1,8 @@
 'use strict';
 
-var concat = require('concat-stream'),
-  es = require('event-stream'),
-  PluginError = require('gulp-util').PluginError;
+var concat = require('concat-stream');
+var es = require('event-stream');
+var PluginError = require('gulp-util').PluginError;
 
 module.exports = function(options) {
   //gutil.log(JSON.stringify(options);
@@ -39,11 +39,11 @@ function replace(file, text, includeRegExp, prefix, suffix, global) {
   global = global || {};
   var matches = includeRegExp.exec(text);
   while (matches) {
-    var match = matches[0],
-      tempName = matches[1].split(prefix)[1];
+    var match = matches[0];
+    var tempName = matches[1].split(prefix)[1];
     var token = tempName.split(suffix)[0].toString();
     var tokenValue = ref(global, token);
-    if(typeof tokenValue === 'object'){
+    if (typeof tokenValue === 'object') {
       tokenValue = JSON.stringify(tokenValue);
     }
     text = text.replace(match, tokenValue);
@@ -63,9 +63,8 @@ function replace(file, text, includeRegExp, prefix, suffix, global) {
 
 function ref(obj, str) {
   var ps = str.split('.'), co = obj;
-  for(var i = 0; i < ps.length; i++)
-  {
-    co = (co[ps[i]])? co[ps[i]] : co[ps[i]] = {};
+  for (var i = 0; i < ps.length; i++) {
+    co = (co[ps[i]]) ? co[ps[i]] : co[ps[i]] = {};
   }
   return co;
 }
