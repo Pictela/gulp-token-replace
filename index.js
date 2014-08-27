@@ -43,6 +43,7 @@ function replace(text, options) {
 
   var includeRegExp = new RegExp(escapeRegExp(options.prefix) + "(.+?)" + escapeRegExp(options.suffix), "g");
 
+  var retVal = text;
   var regExpResult;
   while (regExpResult = includeRegExp.exec(text)) {
     var fullMatch = regExpResult[0];
@@ -52,10 +53,10 @@ function replace(text, options) {
       tokenValue = '';
     }
     if (tokenValue !== null) {
-      text = text.replace(fullMatch, tokenValue);
+      retVal = retVal.replace(fullMatch, tokenValue);
     }
   }
-  return text;
+  return retVal;
 }
 
 function escapeRegExp(text) {
