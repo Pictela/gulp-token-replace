@@ -52,13 +52,6 @@ function replace(file, text, options) {
       tokenValue = JSON.stringify(tokenValue);
     }
     text = text.replace(match, tokenValue);
-    if (matches[3]) {
-      // replace variables
-      var data = JSON.parse(matches[3]);
-      for (var k in data) {
-        text = text.replace(new RegExp(prefix + k, 'g'), data[k]);
-      }
-    }
 
     matches = includeRegExp.exec(text);
   }
