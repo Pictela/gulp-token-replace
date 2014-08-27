@@ -10,20 +10,22 @@ module.exports = function(options) {
 
   function tokenReplace(file) {
     var self = this;
-    if (file.isNull()) {
-      self.emit('data', file);
-    } else if (file.isStream()) {
-      file.contents.pipe(concat(function(data) {
-        file.contents = new Buffer(replace(String(data), options));
+    try {
+      if (file.isNull()) {
         self.emit('data', file);
-      }));
-    } else if (file.isBuffer()) {
-      try {
+      } else if (file.isStream()) {
+        file.contents.pipe(concat(function(data) {
+          file.contents = new Buffer(replace(String(data), options));
+          self.emit('data', file);
+        }));
+      } else if (file.isBuffer()) {
         file.contents = new Buffer(replace(String(file.contents), options));
         self.emit('data', file);
-      } catch (e) {
-        self.emit('error', new PluginError('gulp-token-replace', e));
+      } else {
+        self.emit('error', new PluginError('gulp-token-replace', new Error('unknown type of file')));
       }
+    } catch (e) {
+      self.emit('error', new PluginError('gulp-token-replace', e));
     }
   }
 
