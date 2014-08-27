@@ -16,7 +16,6 @@ Add it to your `gulpfile.js`:
 var replace = require('gulp-token-replace');
 
 gulp.task('token-replace', function(){
-  // regex to find tokens ({{.*?}})
   var config = require('./configuration/config.json');
   return gulp.src(['src/*.js', 'src/*.html'])
     .pipe(replace({global:config}))
@@ -27,7 +26,7 @@ gulp.task('token-replace', function(){
 ## Example config
 
 ```javascript
-{
+module.exports = {
   "tokens":{
     "RMLibs":"http://ads.pictela.com/ads/jsapi/ADTECH.js",
     "size":"320x50",
@@ -38,7 +37,7 @@ gulp.task('token-replace', function(){
       "name":"example",
       "title":"EXAMPLE TITLE"
     }
-}
+};
 ```
 
 In a file (also works for JavaScript)
@@ -64,7 +63,14 @@ In a file (also works for JavaScript)
 
 ## API
 
-gulp-token-replace can be called with an object [prefix, suffix, globals]
+gulp-token-replace can be called with a config object with these attributes:
+* **prefix** (defaults to '{{')
+* **suffix** (defaults to '}}')
+* **tokens** (or **global**) - An object containing all the tokens to be used for replacement.  This object can contain
+ sub-objects with hierarchical tokens.
+* **preserveUnknownTokens** (defaults to false) - By default unknown tokens will be removed from the source file and
+ replaced with an empty string.  By setting the preserveUnknownTokens option to true, the source file will not be
+ changed when an unknown token is encountered.
 
 ### replace(object)
 
@@ -73,17 +79,7 @@ Type: `Object`
 
 configuration object.
 
-### replace(object)
-
 *Note:* gulp-token-replace cannot perform regex replacement on streams.
-
-#### regex
-Type: `RegExp`
-
-The regex pattern to search for. See the [MDN documentation for RegExp] for details.
-
-[MDN documentation for RegExp]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-[MDN documentation for String.replace]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
 
 [travis-url]: http://travis-ci.org/lazd/gulp-token-replace
 [travis-image]: https://secure.travis-ci.org/lazd/gulp-token-replace.png?branch=master
