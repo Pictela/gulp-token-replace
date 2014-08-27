@@ -18,12 +18,14 @@ var replace = require('gulp-token-replace');
 gulp.task('token-replace', function(){
   // regex to find tokens ({{.*?}})
   var config = require('./configuration/config.json');
-  return gulp.src(['src/*.js', src/*.html'])
+  return gulp.src(['src/*.js', 'src/*.html'])
     .pipe(replace({global:config}))
     .pipe(gulp.dest('dist/'))
 })
 ```
-```example config
+
+Example config
+```javascript
 {
   "tokens":{
     "RMLibs":"http://ads.pictela.com/ads/jsapi/ADTECH.js",
@@ -32,8 +34,10 @@ gulp.task('token-replace', function(){
     "Author":"Martin Wojtala"
   }
 }
+```
 
-```in file (also works for JavaScript)
+In a file (also works for JavaScript)
+```html
 <!--{{tokens.Copyrights}}-->
 <!--canvasSize:{{tokens.size}}-->
 <!DOCTYPE html>
@@ -51,8 +55,7 @@ gulp.task('token-replace', function(){
 <div id="debug"></div>
 </body>
 </html>
-
-
+```
 
 ## API
 
