@@ -40,7 +40,7 @@ function injectDefaultOptions(options) {
 function replace(file, text, options) {
   options = injectDefaultOptions(options);
 
-  var includeRegExp = new RegExp("(" + options.prefix + ".*?" + options.suffix + ")", "g");
+  var includeRegExp = new RegExp("(" + escapeRegExp(options.prefix) + ".*?" + escapeRegExp(options.suffix) + ")", "g");
 
   var matches = includeRegExp.exec(text);
   while (matches) {
@@ -64,6 +64,10 @@ function replace(file, text, options) {
   }
   file.contents = new Buffer(text);
   return file;
+}
+
+function escapeRegExp(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
 function ref(obj, str) {
