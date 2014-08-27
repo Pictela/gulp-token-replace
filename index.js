@@ -42,18 +42,18 @@ function replace(file, text, options) {
 
   var includeRegExp = new RegExp("(" + escapeRegExp(options.prefix) + ".*?" + escapeRegExp(options.suffix) + ")", "g");
 
-  var matches = includeRegExp.exec(text);
-  while (matches) {
-    var match = matches[0];
-    var tempName = matches[1].split(options.prefix)[1];
-    var token = tempName.split(options.suffix)[0].toString();
-    var tokenValue = ref(options.tokens, token);
+  var regExpResult = includeRegExp.exec(text);
+  while (regExpResult) {
+    var fullMatch = regExpResult[0];
+    var tempName = regExpResult[1].split(options.prefix)[1];
+    var tokenName = tempName.split(options.suffix)[0].toString();
+    var tokenValue = ref(options.tokens, tokenName);
     if (typeof tokenValue === 'object') {
       tokenValue = JSON.stringify(tokenValue);
     }
-    text = text.replace(match, tokenValue);
+    text = text.replace(fullMatch, tokenValue);
 
-    matches = includeRegExp.exec(text);
+    regExpResult = includeRegExp.exec(text);
   }
   file.contents = new Buffer(text);
   return file;
