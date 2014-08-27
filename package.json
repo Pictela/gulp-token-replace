@@ -1,6 +1,6 @@
 {
   "name": "gulp-token-replace",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A token replace plugin for gulp",
   "main": "index.js",
   "devDependencies": {
