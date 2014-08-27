@@ -14,12 +14,13 @@ module.exports = function(options) {
       self.emit('data', file);
     } else if (file.isStream()) {
       file.contents.pipe(concat(function(data) {
-        var text = String(data);
-        self.emit('data', replace(file, text, options));
+        file.contents = new Buffer(replace(String(data), options));
+        self.emit('data', file);
       }));
     } else if (file.isBuffer()) {
       try {
-        self.emit('data', replace(file, String(file.contents), options));
+        file.contents = new Buffer(replace(String(file.contents), options));
+        self.emit('data', file);
       } catch (e) {
         self.emit('error', new PluginError('gulp-token-replace', e));
       }
@@ -38,7 +39,7 @@ function injectDefaultOptions(options) {
   return options;
 }
 
-function replace(file, text, options) {
+function replace(text, options) {
   options = injectDefaultOptions(options);
 
   var includeRegExp = new RegExp(escapeRegExp(options.prefix) + "(.+?)" + escapeRegExp(options.suffix), "g");
@@ -55,8 +56,7 @@ function replace(file, text, options) {
       text = text.replace(fullMatch, tokenValue);
     }
   }
-  file.contents = new Buffer(text);
-  return file;
+  return text;
 }
 
 function escapeRegExp(text) {
