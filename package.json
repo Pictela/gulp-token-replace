@@ -1,6 +1,6 @@
 {
   "name": "gulp-token-replace",
-  "version": "0.4.0",
+  "version": "1.0.1",
   "description": "A token replace plugin for gulp",
   "main": "index.js",
   "devDependencies": {
@@ -29,7 +29,7 @@
   ],
   "author": {
     "name": "Martin Wojtala",
-    "email": "martin.wojtala@adtech.com"
+    "email": "martin.wojtala@teamaol.com"
   },
   "license": "MIT",
   "bugs": {

@@ -81,7 +81,7 @@ configuration object.
 
 *Note:* gulp-token-replace cannot perform regex replacement on streams.
 
-[travis-url]: http://travis-ci.org/lazd/gulp-token-replace
-[travis-image]: https://secure.travis-ci.org/lazd/gulp-token-replace.png?branch=master
+[travis-url]: http://travis-ci.org/Pictela/gulp-token-replace
+[travis-image]: https://secure.travis-ci.org/Pictela/gulp-token-replace.png?branch=master
 [npm-url]: https://npmjs.org/package/gulp-token-replace
 [npm-image]: https://badge.fury.io/js/gulp-token-replace.png
