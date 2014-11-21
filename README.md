@@ -61,6 +61,10 @@ In a file (also works for JavaScript)
 </html>
 ```
 
+## CHANGELOG
+
+[1.0.2] Added a object replace feature. 
+
 ## API
 
 gulp-token-replace can be called with a config object with these attributes:

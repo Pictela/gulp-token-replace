@@ -99,6 +99,22 @@ describe('source4.js', function() {
   });
 });
 
+describe('source5.js', function() {
+  describe('Simple replace case {tokens: myvar:"hello"}', function() {
+    it('should match source5_output1.js', function(cb) {
+      TestReplace('source5.js', {tokens: {myVar:'hello'}, preserveUnknownTokens: true}, 'source5_output1.js', true, cb);
+    });
+  });
+});
+
+describe('source6.js', function() {
+  describe('A more complex case where the token value is an object {tokens: myVar:{"hello":{"nested":"object"}}}', function() {
+    it('should match source6_output1.js', function(cb) {
+      TestReplace('source6.js', {tokens: {myVar:{"hello":{"nested":"object"}}}, preserveUnknownTokens: true}, 'source6_output1.js', true, cb);
+    });
+  });
+});
+
 function TestReplace(sourceFile, options, testFile, shouldEqual, cb) {
   fs.readFile("./test/fixtures/" + testFile, function(err, expectedOutput) {
     if (err) { return cb(err); }
