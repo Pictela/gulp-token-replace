@@ -35,6 +35,7 @@ function injectDefaultOptions(options) {
   options.suffix = options.suffix || '}}';
   options.tokens = options.tokens || options.global || {};
   options.preserveUnknownTokens = options.preserveUnknownTokens || false;
+  options.delimiter = options.delimiter || '.';
   return options;
 }
 
@@ -48,7 +49,7 @@ function replace(text, options) {
   while (regExpResult = includeRegExp.exec(text)) {
     var fullMatch = regExpResult[0];
     var tokenName = regExpResult[1];
-    var tokenValue = getTokenValue(options.tokens, tokenName);
+    var tokenValue = getTokenValue(options.tokens, tokenName, options.delimiter);
     if (tokenValue === null && !options.preserveUnknownTokens) {
       tokenValue = '';
     }
@@ -66,9 +67,9 @@ function escapeRegExp(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
-function getTokenValue(tokens, tokenName) {
+function getTokenValue(tokens, tokenName, delimiter) {
   var tmpTokens = tokens;
-  var tokenNameParts = tokenName.split('.');
+  var tokenNameParts = tokenName.split(delimiter);
   for (var i = 0; i < tokenNameParts.length; i++) {
     if (tmpTokens.hasOwnProperty(tokenNameParts[i])) {
       tmpTokens = tmpTokens[tokenNameParts[i]];

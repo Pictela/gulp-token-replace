@@ -115,6 +115,26 @@ describe('source6.js', function() {
   });
 });
 
+describe('source7.html', function() {
+  var source7_tokens = require('./fixtures/source7_tokens.js');
+
+  describe('with replace({tokens: source7_tokens})', function() {
+    it('should NOT match source7_output1.html', function(cb) {
+      TestReplace('source7.html', {tokens: source7_tokens}, 'source7_output1.html', false, cb);
+    });
+  });
+  describe('with replace({delimiter: \'.\', tokens: source7_tokens})', function() {
+    it('should NOT match source7_output1.html', function(cb) {
+      TestReplace('source7.html', {delimiter: '.', tokens: source7_tokens}, 'source7_output1.html', false, cb);
+    });
+  });
+  describe('with replace({delimiter: \'/\', tokens: source7_tokens})', function() {
+    it('should match source7_output1.html', function(cb) {
+      TestReplace('source7.html', {delimiter: '/', tokens: source7_tokens}, 'source7_output1.html', true, cb);
+    });
+  });
+});
+
 function TestReplace(sourceFile, options, testFile, shouldEqual, cb) {
   fs.readFile("./test/fixtures/" + testFile, function(err, expectedOutput) {
     if (err) { return cb(err); }
