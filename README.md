@@ -75,6 +75,8 @@ gulp-token-replace can be called with a config object with these attributes:
 * **preserveUnknownTokens** (defaults to false) - By default unknown tokens will be removed from the source file and
  replaced with an empty string.  By setting the preserveUnknownTokens option to true, the source file will not be
  changed when an unknown token is encountered.
+* **delimiter** (defaults to '.') - By default dot-notation is used to search for values in sub-objects. By setting
+ the delimiter option to any other value, tokens like `{{main.css}}` or `{{styles/main.css}}` can be used.
 
 ### replace(object)
 
