@@ -62,10 +62,10 @@ In a file (also works for JavaScript)
 ```
 
 ## CHANGELOG
-[1.1.0] Added support for nested arrays. Tokens can now include an array which can be retrieved by specific order number (i.e. array[0]);
-[1.0.4] Dependencies bump (contribution by @coreyfarrell).
-[1.0.3] Custom token delimiter added (contribution by @ejurgelionis).
-[1.0.2] Added a object replace feature.
+* **[1.1.0]** Added support for nested arrays. Tokens can now include an array which can be retrieved by specific order number (i.e. array[0]);
+* **[1.0.4]** Dependencies bump (contribution by @coreyfarrell).
+* **[1.0.3]** Custom token delimiter added (contribution by @ejurgelionis).
+* **[1.0.2]** Added a object replace feature.
 
 ## API
 
