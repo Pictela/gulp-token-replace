@@ -47,15 +47,29 @@ function replace(text, options) {
   var retVal = text;
   var regExpResult;
   while (regExpResult = includeRegExp.exec(text)) {
+    var arrayDetected = false;
+    var arrayItemId = -1;
     var fullMatch = regExpResult[0];
     var tokenName = regExpResult[1];
+    if (tokenName.indexOf('[') > 0) {
+      arrayItemId = tokenName.toString().split('[')[1].split(']')[0];
+      tokenName = tokenName.toString().split('[')[0];
+    }
     var tokenValue = getTokenValue(options.tokens, tokenName, options.delimiter);
     if (tokenValue === null && !options.preserveUnknownTokens) {
       tokenValue = '';
     }
     if (tokenValue !== null) {
       if (typeof tokenValue == 'object') {
-        tokenValue = JSON.stringify(tokenValue);
+        if (Array.isArray(tokenValue)) {
+          if (arrayItemId > -1) {
+            tokenValue = tokenValue[arrayItemId];
+          } else {
+            tokenValue = JSON.stringify(tokenValue).split(',');
+          }
+        } else {
+          tokenValue = JSON.stringify(tokenValue);
+        }
       }
       retVal = retVal.replace(fullMatch, tokenValue);
     }
