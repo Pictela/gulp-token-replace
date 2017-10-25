@@ -138,7 +138,6 @@ describe('source7.html', function() {
 describe('source8.js', function() {
   describe('Nested Array case', function() {
     it('should match source8_output1.js', function(cb) {
-      // TestReplace('source8.js', {tokens: {myVar:{"hello":{"nested":"object"}}}, preserveUnknownTokens: true}, 'source8_output1.js', true, cb);
       TestReplace('source8.js', {tokens: {"myVar": "test", "array": [ "Headline 1", "Headline 2", "Headline 3" ], "hello":{"nested":"object"}}, preserveUnknownTokens: true}, 'source8_output1.js', true, cb);
     });
   });
