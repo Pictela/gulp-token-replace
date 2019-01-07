@@ -62,7 +62,7 @@ In a file (also works for JavaScript)
 ```
 
 ## CHANGELOG
-* **[1.1.4]** Event-stream downgrade due to the security flag (downgraded to non-malicious version, 3.3.4 from 3.3.6).
+* **[1.1.4]** Packages audit fixes and Event-stream downgrade due to the security flag (downgraded to non-malicious version, 3.3.4 from 3.3.6).
 * **[1.1.3]** Legacy plugin updates (Thanks coreyfarrell).
 * **[1.1.2]** Full support for arrays (thank you for the feature request Daniel Jost & @gregmcor).
 * **[1.1.1]** Minor documentation adjustments.
