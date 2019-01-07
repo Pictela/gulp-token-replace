@@ -2,7 +2,7 @@
 
 var concat = require('concat-stream');
 var es = require('event-stream');
-var PluginError = require('gulp-util').PluginError;
+var PluginError = require('plugin-error');
 
 module.exports = function(options) {
   options = injectDefaultOptions(options);
