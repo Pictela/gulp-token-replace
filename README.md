@@ -62,6 +62,7 @@ In a file (also works for JavaScript)
 ```
 
 ## CHANGELOG
+* **[1.1.3]** Legacy plugin updates (Thanks coreyfarrell).
 * **[1.1.2]** Full support for arrays (thank you for the feature request Daniel Jost & @gregmcor).
 * **[1.1.1]** Minor documentation adjustments.
 * **[1.1.0]** Added support for nested arrays. Tokens can now include an array which can be retrieved by specific order number (i.e. array[0]);
